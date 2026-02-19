@@ -33,7 +33,7 @@ jobs:
             --enable-plugin=anti-bloat `
             --show-progress `
             --output-dir=dist `
-            ./app.py
+            ./main.py
 
       - name: Subir el ejecutable como Artefacto
         uses: actions/upload-artifact@v4
