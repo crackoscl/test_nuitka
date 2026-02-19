@@ -1,0 +1,9 @@
+*.build/
+*.onefile-build/
+*.dist/
+*.exe
+*.bin
+__pycache__/
+.venv/
+.idea/
+.vscode/
