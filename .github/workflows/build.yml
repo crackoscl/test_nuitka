@@ -28,11 +28,12 @@ jobs:
           python -m nuitka `
             --standalone `
             --onefile `
-            --collect-all=polars `
+            --include-package=polars `
+            --include-package-data=polars `
             --enable-plugin=anti-bloat `
             --show-progress `
             --output-dir=dist `
-            app.py
+            ./app.py
 
       - name: Subir el ejecutable como Artefacto
         uses: actions/upload-artifact@v4
