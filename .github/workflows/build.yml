@@ -1,0 +1,41 @@
+name: Compilar ejecutable con Nuitka
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.3' 
+          cache: 'pip'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Compilar con Nuitka
+        run: |
+          python -m nuitka `
+            --standalone `
+            --onefile `
+            --collect-all=polars `
+            --enable-plugin=anti-bloat `
+            --show-progress `
+            --output-dir=dist `
+            app.py
+
+      - name: Subir el ejecutable como Artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: programa-windows
+          path: dist/*.exe
